@@ -12,7 +12,6 @@ const highscoreEl = document.getElementById("highscoreVal");
 const inputNumEl = document.getElementById("inpNum");
 const body = document.querySelector("body");
 
-
 // Game logic
 function gameLogic() {
     const inpNumber = Number(document.getElementById("inpNum").value);
