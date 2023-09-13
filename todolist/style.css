@@ -1,0 +1,17 @@
+body {
+  background-color: rgb(168, 172, 176);
+}
+
+.input {
+  font-size: 20px;
+  font-family: sans-serif;
+  width: 400px;
+  height: 40px;
+  border: none;
+}
+
+.add-btn {
+  font-size: 20px;
+  height: 42px;
+  border: none;
+}
