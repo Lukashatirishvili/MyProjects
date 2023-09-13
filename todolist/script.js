@@ -1,20 +1,22 @@
 // Elements
 const addBtn = document.querySelector(".add-btn");
 const input = document.querySelector(".input");
-console.log(addBtn);
 
-const createList = function () {
-  // create element
-  const li = document.createElement("li");
-  li.classList.add(`list-${i}`);
+const createElement = function (event) {
+  if (event.type === "click" || event.key === "Enter") {
+    // create element
+    const li_el = document.createElement("li");
 
-  // Where we want to create "li" Element
-  const ul_Element = document.querySelector(".user-todolist");
-  ul_Element.appendChild(li);
+    // assing class name and textcontent
+    li_el.classList.add("list");
+    li_el.textContent = input.value;
+    input.value = "";
 
-  document.querySelector(`.list-${i}`).textContent = "12";
-
-  console.log(i);
+    // append new element
+    const ul_el = document.querySelector(".user-todolist");
+    ul_el.appendChild(li_el);
+  }
 };
 
-addBtn.addEventListener("click", createList);
+input.addEventListener("keydown", createElement);
+addBtn.addEventListener("click", createElement);

@@ -1,5 +1,12 @@
 body {
   background-color: rgb(168, 172, 176);
+  margin: 0;
+  padding: 0;
+  margin-left: 50px;
+}
+
+section {
+  align-items: center;
 }
 
 .input {
@@ -10,8 +17,26 @@ body {
   border: none;
 }
 
+input:focus {
+  outline: none;
+}
+
 .add-btn {
   font-size: 20px;
   height: 42px;
   border: none;
+}
+
+.user-todolist {
+  padding: 0px;
+}
+
+.list {
+  font-size: 20px;
+  list-style: none;
+  height: 40px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  border: 2px solid black;
 }
