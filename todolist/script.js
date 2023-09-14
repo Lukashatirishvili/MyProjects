@@ -1,6 +1,9 @@
 // Elements
 const addBtn = document.querySelector(".add-btn");
 const input = document.querySelector(".input");
+const btnContainer = document.querySelector(".btn-container");
+const itemCouner = document.querySelector(".item-counter");
+let i = 0;
 
 const createElement = function (event) {
   if (event.type === "click" || event.key === "Enter") {
@@ -15,6 +18,9 @@ const createElement = function (event) {
     // append new element
     const ul_el = document.querySelector(".user-todolist");
     ul_el.appendChild(li_el);
+
+    i++;
+    itemCouner.textContent = `${i} item left`;
   }
 };
 

@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(168, 172, 176);
+  background-color: DarkSlateGrey;
   margin: 0;
   padding: 0;
   margin-left: 50px;
@@ -35,8 +35,16 @@ input:focus {
   font-size: 20px;
   list-style: none;
   height: 40px;
+  width: 400px;
+  padding-left: 15px;
   margin-bottom: 5px;
   display: flex;
   align-items: center;
-  border: 2px solid black;
+  border-bottom: 0.3px solid grey;
+  cursor: pointer;
+}
+
+.btn-container {
+  display: flex;
+  gap: 15px;
 }
