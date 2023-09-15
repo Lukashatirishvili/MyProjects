@@ -44,7 +44,40 @@ input:focus {
   cursor: pointer;
 }
 
+.completed {
+  text-decoration: line-through;
+}
+
+.hidden {
+  display: none;
+}
+
 .btn-container {
   display: flex;
-  gap: 15px;
+  gap: 20px;
+  border: none;
+}
+
+.completed-btn:hover {
+  color: black;
+}
+
+.all-btn {
+  font-size: 13px;
+  width: auto;
+  height: 30px;
+  border: none;
+}
+
+.active-btn {
+  font-size: 13px;
+  width: auto;
+  height: 30px;
+  border: none;
+}
+.completed-btn {
+  font-size: 13px;
+  width: auto;
+  height: 30px;
+  border: none;
 }
