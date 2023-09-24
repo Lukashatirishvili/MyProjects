@@ -10,19 +10,24 @@ const itemCounterEl = document.querySelector(".item-counter");
 const liElements = document.querySelectorAll("li");
 const listSection = document.querySelector(".list-section");
 let itemCounter = 0;
+let newLi; // Declare variable in the outer scope to get access later
+let Arr = [];
 
 // Function to Create new item
 const createNewItem = function (event) {
   if (event.type === "click" || event.key === "Enter") {
     if (input.value !== "") {
       // Creating new element and setting classname and textcontent
-      const newLi = document.createElement("li");
+      newLi = document.createElement("li");
       newLi.setAttribute("class", "list");
       newLi.textContent = input.value;
 
       // Get the parent element and append new element to the DOM
       const parentEl = document.querySelector(".list-section");
       parentEl.appendChild(newLi);
+
+      // Save list element in array
+      Arr.push(newLi);
 
       // Clear input field and update itemCounter element
       input.value = "";
@@ -47,12 +52,18 @@ const completeList = function (event) {
 };
 
 // All, Active and Completed buttons logic
-const filterBtn = function (event) {};
+const filterBtn = function (event) {
+  const clickedItem = event.target;
+  Arr.forEach((el) => {
+    el;
+  });
+};
 
 // Event listeners
 input.addEventListener("keydown", createNewItem);
 addBtn.addEventListener("click", createNewItem);
 listSection.addEventListener("click", completeList);
+btnContainer.addEventListener("click", filterBtn);
 
 /*
 let i = 0;
