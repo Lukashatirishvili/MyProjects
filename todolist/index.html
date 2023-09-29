@@ -3,27 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todos</title>
     <link rel="stylesheet" href="style.css" />
+    <title>Todos</title>
   </head>
   <body>
     <header>
-      <h1>Todos</h1>
+      <h1>todos</h1>
     </header>
-    <section>
-      <input type="text" class="input" placeholder="What needs to be done?" />
-      <button class="add-btn">Add</button>
-      <div class="list-section"></div>
-    </section>
-    <div>
-      <p class="item-counter">0 items left</p>
-    </div>
-    <div class="btn-container">
-      <button class="all-btn">All</button>
-      <button class="active-btn">Active</button>
-      <button class="completed-btn">Completed</button>
-    </div>
-
+    <main class="todos-app">
+      <div class="input-section">
+        <img class="arrow-img hidden" src="images/arrow.png" />
+        <input class='input' "text" placeholder="What need to be done?" />
+      </div>
+      <div class="list-section">
+        <ul>
+          <li>
+            <img class="unchecked-btn" src="images/unchecked-btn.png" />
+            <span class="li-text">Taks 1</span>
+            <img class="remove-btn" src="images/remove-btn.png" />
+          </li>
+          <li>
+            <img class="unchecked-btn" src="images/unchecked-btn.png" />
+            <span class="li-text">Taks 2</span>
+            <img class="remove-btn" src="images/remove-btn.png" />
+          </li>
+          <li>
+            <img class="unchecked-btn" src="images/unchecked-btn.png" />
+            <span class="li-text">Taks 3</span>
+            <img class="remove-btn" src="images/remove-btn.png" />
+          </li>
+        </ul>
+      </div>
+      <div class="filter-section">
+        <span class="item-counter">2 items left</span>
+        <button class="all-btn button">All</button>
+        <button class="active-btn button">Active</button>
+        <button class="completed-btn button">Completed</button>
+        <span class="clear-btn">Clear completed</span>
+      </div>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
