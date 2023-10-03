@@ -7,41 +7,31 @@
     <title>Todos</title>
   </head>
   <body>
-    <header>
-      <h1>todos</h1>
-    </header>
-    <main class="todos-app">
-      <div class="input-section">
-        <img class="arrow-img hidden" src="images/arrow.png" />
-        <input class='input' "text" placeholder="What need to be done?" />
-      </div>
-      <div class="list-section">
-        <ul>
-          <li>
-            <img class="unchecked-btn" src="images/unchecked-btn.png" />
-            <span class="li-text">Taks 1</span>
-            <img class="remove-btn" src="images/remove-btn.png" />
-          </li>
-          <li>
-            <img class="unchecked-btn" src="images/unchecked-btn.png" />
-            <span class="li-text">Taks 2</span>
-            <img class="remove-btn" src="images/remove-btn.png" />
-          </li>
-          <li>
-            <img class="unchecked-btn" src="images/unchecked-btn.png" />
-            <span class="li-text">Taks 3</span>
-            <img class="remove-btn" src="images/remove-btn.png" />
-          </li>
-        </ul>
+    <div class="todos-app">
+      <header>
+        <h1>todos</h1>
+        <div class="input-section">
+          <img src="images/arrow.png" class="arrow-img" />
+          <input
+            type="text"
+            class="input"
+            placeholder="What needs to be done?"
+          />
+        </div>
+      </header>
+      <div class="task-section">
+        <img src="images/unchecked-btn.png" class="unchecked-img" />
+        <input type="text" class="task-field" placeholder="Task1" readonly />
+        <img src="images/remove-btn.png" class="remove-img" />
       </div>
       <div class="filter-section">
-        <span class="item-counter">2 items left</span>
-        <button class="all-btn button">All</button>
-        <button class="active-btn button">Active</button>
-        <button class="completed-btn button">Completed</button>
-        <span class="clear-btn">Clear completed</span>
+        <span>1 items left</span>
+        <button>All</button>
+        <button>Active</button>
+        <button>Completed</button>
+        <button>Clear completed</button>
       </div>
-    </main>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

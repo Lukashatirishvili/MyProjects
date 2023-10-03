@@ -1,121 +1,85 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: rgb(238, 237, 237);
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  width: 600px;
+  font-size: 24px;
+  margin: 0 auto;
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  color: #4d4d4d;
 }
 
-h1 {
+header h1 {
   display: flex;
   justify-content: center;
   font-size: 100px;
-  margin-top: 30px;
+  font-weight: 100;
   color: rgba(175, 47, 47, 0.15);
+  margin-top: 20px;
 }
 
 .input-section {
   background-color: white;
   display: flex;
   justify-content: flex-end;
-  width: 500px;
-  margin: 0 auto;
-  border-bottom: 1px solid rgb(201, 200, 200);
+  align-items: flex-end;
+  width: 550px;
+  border-bottom: 1px solid #f1f0f0;
 }
 
 .input {
-  width: 450px;
-  height: 60px;
-  font-size: 20px;
+  width: 515px;
+  font-size: 24px;
+  padding: 16px;
   border: none;
   outline: none;
-  margin-left: 10px;
 }
 
 .input::placeholder {
-  color: #bfbcbc; /* Change to your desired color value */
+  font-style: italic;
+  color: rgb(227, 226, 226);
 }
 
 .arrow-img {
-  width: 30px;
-  height: 30px;
-  margin-top: 15px;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 17px;
+}
+
+.task-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 550px;
+  height: 60px;
+  background-color: white;
+}
+
+.unchecked-img {
+  width: 38px;
+  height: 38px;
+}
+
+.task-field {
+  width: 460px;
   margin-left: 10px;
-}
-
-.list-section {
-  background-color: white;
-  display: flex;
-  width: 500px;
-  margin: 0 auto;
-}
-
-ul {
-  list-style-type: none;
-}
-
-li {
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 500px;
-  height: 54px;
+  border: none;
+  outline: none;
   font-size: 20px;
-  border-bottom: 1px solid rgb(233, 231, 231);
 }
 
-img.unchecked-btn {
-  position: absolute;
-  width: 30px;
-  left: 7px;
+.task-field::placeholder {
+  font-size: 20px;
+  color: #4d4d4d;
 }
 
-img.remove-btn {
-  position: absolute;
-  width: 25px;
-  right: 15px;
-}
-
-.li-text {
-  position: absolute;
-  left: 50px;
-}
-
-.filter-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: 500px;
-  height: 35px;
-  margin: 0 auto;
-  background-color: white;
-  color: #6a6969;
-}
-
-.item-counter {
-  position: absolute;
-  left: 20px;
-}
-
-.all-btn {
-  position: absolute;
-  left: 170px;
-}
-
-.active-btn {
-  position: absolute;
-  left: 202px;
-}
-
-.completed-btn {
-  position: absolute;
-  left: 260px;
-}
-
-.clear-btn {
-  position: absolute;
-  right: 10px;
+.remove-img {
+  width: 27px;
+  height: 27px;
 }
