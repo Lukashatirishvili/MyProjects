@@ -20,16 +20,20 @@
         </div>
       </header>
       <div class="task-section">
-        <img src="images/unchecked-btn.png" class="unchecked-img" />
-        <input type="text" class="task-field" placeholder="Task1" readonly />
-        <img src="images/remove-btn.png" class="remove-img" />
+        <!-- <div class="task">
+          <img src="images/unchecked-btn.png" class="unchecked-img" />
+          <input type="text" class="task-field" placeholder="Task1" readonly />
+          <img src="images/remove-btn.png" class="remove-img" />
+        </div> -->
       </div>
-      <div class="filter-section">
-        <span>1 items left</span>
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
-        <button>Clear completed</button>
+      <div class="filter-section-hidden">
+        <span class="items-left">1 items left</span>
+        <div class="filter-buttons">
+          <button class="all-button">All</button>
+          <button class="active-button">Active</button>
+          <button class="completed-button">Completed</button>
+        </div>
+        <span class="clear-task">Clear completed</span>
       </div>
     </div>
     <script src="script.js"></script>
