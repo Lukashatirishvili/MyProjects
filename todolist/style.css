@@ -144,6 +144,11 @@ button {
   border-radius: 3px;
 }
 
+.filter-buttons .active {
+  border: 1px solid;
+  border-radius: 3px;
+}
+
 .btn-active {
   border: 1px solid;
   border-radius: 3px;
