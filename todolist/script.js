@@ -7,6 +7,7 @@ const clearTask_el = document.querySelector(".clear-task");
 const all_btn = document.querySelector(".all-button");
 const active_btn = document.querySelector(".active-button");
 const completed_btn = document.querySelector(".completed-button");
+const arrowBtn = document.querySelector(".arrow-img");
 
 // ******** Variables ******** //
 let itemCounter = 0;
@@ -15,6 +16,7 @@ let itemCounter = 0;
 function createTask(e) {
   if (e.key === "Enter") {
     if (input.value) {
+      arrowBtn.classList.remove("hidden");
       // Create and append "task" element
       const task = document.createElement("div");
       task.classList.add("task", "active");
@@ -89,6 +91,7 @@ function filterBtn(e) {
 
 function completeTask(e) {
   const targetElement = e.target;
+  const task_elements = document.querySelectorAll(".task");
   if (targetElement.classList.contains("check-img")) {
     // select task element
     const task = targetElement.parentElement;
@@ -104,6 +107,14 @@ function completeTask(e) {
       if (active_btn.classList.contains("active")) {
         task.classList.add("hidden");
       }
+
+      task_elements.forEach((task) => {
+        console.log(task);
+        if (!task.classList.contains("active")) {
+          console.log("true");
+          arrowBtn.src = "images/arrow-bold.png";
+        }
+      });
     }
     // If user unchecked task
     else if (targetElement.classList.contains("checked")) {
@@ -116,12 +127,22 @@ function completeTask(e) {
       if (completed_btn.classList.contains("active")) {
         task.classList.add("hidden");
       }
+
+      document.querySelectorAll(".task").forEach((task) => {
+        if (task.classList.contains("completed")) {
+          arrowBtn.src = "images/arrow.png";
+        }
+      });
     }
     // display clear button - if at least one task is checked
     if (document.querySelectorAll(".checked").length > 0) {
       display_clearBtn("display");
     } else {
       display_clearBtn("hidden");
+    }
+
+    if (document.querySelectorAll(".checked").length !== task_elements.length) {
+      arrowBtn.classList.remove("marked");
     }
   }
 }
@@ -151,8 +172,14 @@ function update_ItemCounter(order) {
   if (order === "increase") {
     itemCounter++;
     itemCounter_el.textContent = `${itemCounter} item left`;
-  } else {
+  } else if (order === "decrease") {
     itemCounter--;
+    itemCounter_el.textContent = `${itemCounter} item left`;
+  } else if (order === "arrowbtn") {
+    itemCounter = 0;
+    itemCounter_el.textContent = `${itemCounter} item left`;
+  } else if (order === "arrowBoldbtn") {
+    itemCounter = document.querySelectorAll(".task.active").length;
     itemCounter_el.textContent = `${itemCounter} item left`;
   }
 }
@@ -165,10 +192,68 @@ function display_clearBtn(order) {
   }
 }
 
+function arrowBtn_logic(e) {
+  const target = e.target;
+  const task_elements = document.querySelectorAll(".task");
+  // change arrow img
+
+  if (target.classList.contains("marked")) {
+    arrowBtn.src = "images/arrow.png";
+    arrowBtn.classList.remove("marked");
+
+    task_elements.forEach((task) => {
+      //
+      task.classList.remove("completed");
+      task.classList.add("active");
+
+      // change all check button as checked
+      const checkButtons = document.querySelectorAll(".check-img");
+      checkButtons.forEach((check) => {
+        check.src = "images/unchecked-btn.png";
+        check.classList.remove("checked");
+      });
+      update_ItemCounter("arrowBoldbtn");
+
+      // display clear button - if at least one task is checked
+      if (document.querySelectorAll(".checked").length > 0) {
+        display_clearBtn("display");
+      } else {
+        display_clearBtn("hidden");
+      }
+    });
+  } else {
+    arrowBtn.src = "images/arrow-bold.png";
+    arrowBtn.classList.add("marked");
+
+    task_elements.forEach((task) => {
+      //
+      task.classList.remove("active");
+      task.classList.add("completed");
+
+      // change all check button as checked
+      const checkButtons = document.querySelectorAll(".check-img");
+      checkButtons.forEach((check) => {
+        check.src = "images/checked-btn.png";
+        check.classList.add("checked");
+      });
+
+      update_ItemCounter("arrowbtn");
+
+      // display clear button - if at least one task is checked
+      if (document.querySelectorAll(".checked").length > 0) {
+        display_clearBtn("display");
+      } else {
+        display_clearBtn("hidden");
+      }
+    });
+  }
+}
+
 // ******** Event Listeners ******** //
 taskSection.addEventListener("mouseover", display_RemoveBtn);
 taskSection.addEventListener("mouseout", display_RemoveBtn);
 input.addEventListener("keydown", createTask);
 taskSection.addEventListener("click", completeTask);
 filterSection.addEventListener("click", filterBtn);
+arrowBtn.addEventListener("click", arrowBtn_logic);
 // taskSection.addEventListener("dblclick", editTask);

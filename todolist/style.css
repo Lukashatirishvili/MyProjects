@@ -54,6 +54,10 @@ header h1 {
   cursor: pointer;
 }
 
+.arrow-img.hidden {
+  visibility: hidden;
+}
+
 /* Task section --------------------------------------------- */
 .task {
   display: flex;
