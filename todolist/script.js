@@ -2,6 +2,97 @@
 const input = document.querySelector(".input");
 const taskSection = document.querySelector(".task-section");
 const filterSection = document.querySelector(".filter-section");
+const arrowBtn = document.querySelector(".arrow-img");
+
+// ******** Functions ******** //
+function createTask(e) {
+  if (e.key === "Enter" && input.value) {
+    // Create and append "task" element
+    const task = document.createElement("div");
+    task.classList.add("task", "active");
+    task.innerHTML = `<img src="images/unchecked-btn.png" class="check-img" />
+    <input readonly type="text" class="task-field" placeholder='${input.value}' />
+    <img src="images/remove-btn.png" class="remove-img hidden" />`;
+    taskSection.appendChild(task);
+
+    // Clear input field, display arrow button and display filter section
+    input.value = "";
+    arrowBtn.classList.remove("hidden");
+    filterSection.classList.remove("hidden");
+
+    // Display item
+    itemCouner();
+  }
+}
+
+function completeTask(e) {
+  const target = e.target; // element which will be clicked
+  const task = target.parentElement;
+
+  if (!target.matches(".checked")) {
+    // mark task as completed
+    task.classList.remove("active");
+    task.classList.add("completed");
+
+    // mark check button and update item
+    checkBtn(target);
+    itemCouner();
+  } else {
+    // mark task as uncompleted
+    task.classList.remove("completed");
+    task.classList.add("active");
+
+    // mark check button and update item
+    checkBtn(target);
+    itemCouner();
+  }
+}
+
+function checkBtn(target) {
+  const taskEl = document.querySelectorAll(".task");
+  if (!target.matches(".check-img.checked")) {
+    taskEl.forEach((task) => {
+      const checkBtn = task.children[0];
+      if (task.matches(".completed")) {
+        checkBtn.src = "images/checked-btn.png";
+        checkBtn.classList.add("checked");
+      } else if (task.matches(".active")) {
+        checkBtn.src = "images/unchecked-btn.png";
+        checkBtn.classList.remove("checked");
+      }
+    });
+  } else if (target.matches(".arrow-img")) {
+    taskEl.forEach((task) => {
+      const checkBtn = task.children[0];
+      // change img src and classlist
+      checkBtn.src = "images/checked-btn.png";
+      checkBtn.classList.add("checked");
+      // change task classlist
+      task.classList.remove("active");
+      task.classList.add("completed");
+    });
+  }
+}
+
+function itemCouner() {
+  const itemsLeft = document.querySelectorAll(".task.active").length;
+  document.querySelector(".items-left").textContent = `${itemsLeft} items left`;
+}
+
+// ******** Event Listeners ******** //
+input.addEventListener("keydown", createTask);
+taskSection.addEventListener("click", function (e) {
+  completeTask(e);
+});
+arrowBtn.addEventListener("click", function (e) {
+  checkBtn(e.target);
+});
+
+/*
+// ******** Selecting elements ******** //
+const input = document.querySelector(".input");
+const taskSection = document.querySelector(".task-section");
+const filterSection = document.querySelector(".filter-section");
 const itemCounter_el = document.querySelector(".items-left");
 const clearTask_el = document.querySelector(".clear-task");
 const all_btn = document.querySelector(".all-button");
@@ -16,6 +107,7 @@ let itemCounter = 0;
 function createTask(e) {
   if (e.key === "Enter") {
     if (input.value) {
+      // display arrow btn
       arrowBtn.classList.remove("hidden");
       // Create and append "task" element
       const task = document.createElement("div");
@@ -33,6 +125,73 @@ function createTask(e) {
 
       update_ItemCounter("increase");
     }
+  }
+}
+
+function completeTask(e) {
+  const targetElement = e.target;
+  const task_elements = document.querySelectorAll(".task");
+  if (targetElement.classList.contains("check-img")) {
+    // select task element
+    const task = targetElement.parentElement;
+
+    // If user checked task
+    if (!targetElement.classList.contains("checked")) {
+      targetElement.src = "images/checked-btn.png";
+      targetElement.classList.add("checked");
+      targetElement.parentElement.classList.remove("active");
+      targetElement.parentElement.classList.add("completed");
+
+      update_ItemCounter("decrease");
+      if (active_btn.classList.contains("active")) {
+        task.classList.add("hidden");
+      }
+
+      task_elements.forEach((task) => {
+        if (!task.classList.contains("active")) {
+          arrowBtn.src = "images/arrow-bold.png";
+        }
+      });
+    }
+    // If user unchecked task
+    else if (targetElement.classList.contains("checked")) {
+      targetElement.src = "images/unchecked-btn.png";
+      targetElement.classList.remove("checked");
+      targetElement.parentElement.classList.remove("completed");
+      targetElement.parentElement.classList.add("active");
+
+      update_ItemCounter("increase");
+      if (completed_btn.classList.contains("active")) {
+        task.classList.add("hidden");
+      }
+
+      document.querySelectorAll(".task").forEach((task) => {
+        if (task.classList.contains("completed")) {
+          arrowBtn.src = "images/arrow.png";
+          arrowBtn.classList.add("marked");
+        }
+      });
+    }
+    // display clear button - if at least one task is checked
+    if (document.querySelectorAll(".checked").length > 0) {
+      display_clearBtn("display");
+    } else {
+      display_clearBtn("hidden");
+    }
+
+    if (document.querySelectorAll(".checked").length !== task_elements.length) {
+      arrowBtn.classList.remove("marked");
+    }
+
+    task_elements.forEach((task) => {
+      if (!task.classList.contains("active")) {
+        arrowBtn.src = "images/arrow-bold.png";
+        arrowBtn.classList.add("marked");
+      } else {
+        arrowBtn.src = "images/arrow.png";
+        arrowBtn.classList.remove("marked");
+      }
+    });
   }
 }
 
@@ -86,64 +245,6 @@ function filterBtn(e) {
       // remove hidden class on all task elements
       task.classList.remove("hidden");
     });
-  }
-}
-
-function completeTask(e) {
-  const targetElement = e.target;
-  const task_elements = document.querySelectorAll(".task");
-  if (targetElement.classList.contains("check-img")) {
-    // select task element
-    const task = targetElement.parentElement;
-
-    // If user checked task
-    if (!targetElement.classList.contains("checked")) {
-      targetElement.src = "images/checked-btn.png";
-      targetElement.classList.add("checked");
-      targetElement.parentElement.classList.remove("active");
-      targetElement.parentElement.classList.add("completed");
-
-      update_ItemCounter("decrease");
-      if (active_btn.classList.contains("active")) {
-        task.classList.add("hidden");
-      }
-
-      task_elements.forEach((task) => {
-        console.log(task);
-        if (!task.classList.contains("active")) {
-          console.log("true");
-          arrowBtn.src = "images/arrow-bold.png";
-        }
-      });
-    }
-    // If user unchecked task
-    else if (targetElement.classList.contains("checked")) {
-      targetElement.src = "images/unchecked-btn.png";
-      targetElement.classList.remove("checked");
-      targetElement.parentElement.classList.remove("completed");
-      targetElement.parentElement.classList.add("active");
-
-      update_ItemCounter("increase");
-      if (completed_btn.classList.contains("active")) {
-        task.classList.add("hidden");
-      }
-
-      document.querySelectorAll(".task").forEach((task) => {
-        if (task.classList.contains("completed")) {
-          arrowBtn.src = "images/arrow.png";
-        }
-      });
-    }
-    // display clear button - if at least one task is checked
-    if (document.querySelectorAll(".checked").length > 0) {
-      display_clearBtn("display");
-    } else {
-      display_clearBtn("hidden");
-    }
-
-    if (document.querySelectorAll(".checked").length !== task_elements.length) {
-      arrowBtn.classList.remove("marked");
-    }
   }
 }
 
@@ -214,6 +315,8 @@ function arrowBtn_logic(e) {
       });
       update_ItemCounter("arrowBoldbtn");
 
+      //
+
       // display clear button - if at least one task is checked
       if (document.querySelectorAll(".checked").length > 0) {
         display_clearBtn("display");
@@ -257,3 +360,4 @@ taskSection.addEventListener("click", completeTask);
 filterSection.addEventListener("click", filterBtn);
 arrowBtn.addEventListener("click", arrowBtn_logic);
 // taskSection.addEventListener("dblclick", editTask);
+*/
