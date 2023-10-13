@@ -9,6 +9,23 @@ const activeBtn = document.querySelector(".active-button");
 const completedBtn = document.querySelector(".completed-button");
 
 // ******** Functions ******** //
+function displayRemoveBtn(e) {
+  const targetElement = e.target;
+  if (
+    e.type === "mouseover" &&
+    (targetElement.classList.contains("task") || targetElement.closest(".task"))
+  ) {
+    const removeBtn = targetElement.closest(".task").children[2];
+    removeBtn.classList.remove("hidden");
+  } else if (
+    e.type === "mouseout" &&
+    (targetElement.classList.contains("task") || targetElement.closest(".task"))
+  ) {
+    const removeBtn = targetElement.closest(".task").children[2];
+    removeBtn.classList.add("hidden");
+  }
+}
+
 function createTask(e) {
   if (e.key === "Enter" && input.value) {
     // Create and append "task" element
@@ -183,9 +200,9 @@ function itemCouner() {
 
 // ******** Event Listeners ******** //
 input.addEventListener("keydown", createTask);
-taskSection.addEventListener("click", function (e) {
-  completeTask(e);
-});
+taskSection.addEventListener("click", completeTask);
+taskSection.addEventListener("mouseover", displayRemoveBtn);
+taskSection.addEventListener("mouseout", displayRemoveBtn);
 arrowBtn.addEventListener("click", function (e) {
   arrowBtn_logic(e.target);
 });
