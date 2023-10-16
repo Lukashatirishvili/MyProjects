@@ -225,19 +225,41 @@ function displayArrowBtn() {
 
 function editTask(e) {
   const target = e.target;
+  const taskEl = target.parentElement;
+  const checkBtn = taskEl.children[0];
+  const removeBtn = taskEl.children[2];
   if (target.matches(".task-field")) {
-    const taskEl = target.parentElement;
     target.removeAttribute("readonly");
-    target.focus();
     target.placeholder = "";
+    target.classList.add("edit");
+    removeBtn.classList.remove("hidden");
+    removeBtn.classList.add("hiddenAll");
+    checkBtn.classList.add("hidden");
   }
+
+  document.addEventListener("click", function (event) {
+    if (!event.target.matches(".task-field")) {
+      target.placeholder = target.value;
+      target.classList.remove("edit");
+      removeBtn.classList.remove("hiddenAll");
+      removeBtn.classList.add("hidden");
+      checkBtn.classList.remove("hidden");
+    }
+  });
 }
 
 function confirmEditTask(e) {
   const target = e.target;
+  const taskEl = target.parentElement;
+  const checkBtn = taskEl.children[0];
+  const removeBtn = taskEl.children[2];
   if (e.key === "Enter" && target.matches(".task-field")) {
     target.setAttribute("readonly", "readonly");
     target.placeholder = target.value;
+    target.classList.remove("edit");
+    removeBtn.classList.add("hidden");
+    removeBtn.classList.remove("hiddenAll");
+    checkBtn.classList.remove("hidden");
   }
 }
 
