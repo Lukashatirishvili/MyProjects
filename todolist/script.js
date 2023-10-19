@@ -2,6 +2,9 @@ const input = document.querySelector(".input");
 const taskSection_el = document.querySelector(".task-section");
 const arrowButton_el = document.querySelector(".arrow-btn");
 const filterSection_el = document.querySelector(".filter-section");
+const allBtn = document.querySelector(".all-button");
+const activeBtn = document.querySelector(".active-button");
+const completedBtn = document.querySelector(".completed-button");
 
 function createTask(e) {
   if (e.keyCode === 13 && input.value) {
@@ -27,10 +30,16 @@ function createTask(e) {
         task_el.classList.replace("active", "completed");
         checkBtn.src = "images/checked-btn.png";
         checkBtn.classList.replace("unchecked", "checked");
+        if (activeBtn.matches(".active")) {
+          task_el.classList.add("hidden");
+        }
       } else if (task_el.matches(".task.completed")) {
         task_el.classList.replace("completed", "active");
         checkBtn.src = "images/unchecked-btn.png";
         checkBtn.classList.replace("checked", "unchecked");
+        if (completedBtn.matches(".active")) {
+          task_el.classList.add("hidden");
+        }
       }
       displayItem();
     });
@@ -48,8 +57,10 @@ function createTask(e) {
 
 function updateTask(e) {
   const target = e.target;
+  const checkBtn = target.previousElementSibling;
   if (target.matches(".task-field")) {
     target.removeAttribute("readonly");
+    checkBtn.classList.add("hidden");
 
     target.addEventListener("keydown", (e) => {
       if (e.keyCode === 13) {
@@ -58,19 +69,42 @@ function updateTask(e) {
           displayItem();
         }
         target.setAttribute("readonly", "readonly");
+        checkBtn.classList.remove("hidden");
       }
     });
 
     document.addEventListener("click", (e) => {
       if (!e.target.matches(".task-field")) {
         target.setAttribute("readonly", "readonly");
+        checkBtn.classList.remove("hidden");
+        if (!target.value) {
+          target.parentElement.remove();
+          displayItem();
+        }
       }
     });
   }
 }
 
+function deleteTask(e) {
+  const target = e.target;
+  const taskCompleted_el = document.querySelectorAll(".task.completed");
+  if (target.matches(".remove-btn")) {
+    target.parentElement.remove();
+  }
+
+  if (target.matches(".clear-task")) {
+    taskCompleted_el.forEach((task) => {
+      task.remove();
+    });
+  }
+  displayItem();
+}
+
 input.addEventListener("keydown", createTask);
 taskSection_el.addEventListener("dblclick", updateTask);
+document.addEventListener("click", deleteTask);
+document.addEventListener("click", filterSection_logic);
 arrowButton_el.addEventListener("click", arrowBtn_logic);
 
 function displayItem() {
@@ -129,4 +163,41 @@ function arrowBtn_logic(e) {
     arrowButton_el.classList.replace("clicked", "unclicked");
   }
   displayItem();
+}
+
+function filterSection_logic(e) {
+  const target = e.target;
+  const task_el = document.querySelectorAll(".task");
+  if (target.matches(".active-button")) {
+    task_el.forEach((task) => {
+      allBtn.classList.remove("active");
+      completedBtn.classList.remove("active");
+      activeBtn.classList.add("active");
+      if (task.matches(".completed")) {
+        task.classList.add("hidden");
+      } else {
+        task.classList.remove("hidden");
+      }
+    });
+  }
+  if (target.matches(".completed-button")) {
+    task_el.forEach((task) => {
+      allBtn.classList.remove("active");
+      activeBtn.classList.remove("active");
+      completedBtn.classList.add("active");
+      if (task.matches(".active")) {
+        task.classList.add("hidden");
+      } else {
+        task.classList.remove("hidden");
+      }
+    });
+  }
+  if (target.matches(".all-button")) {
+    task_el.forEach((task) => {
+      activeBtn.classList.remove("active");
+      completedBtn.classList.remove("active");
+      allBtn.classList.add("active");
+      task.classList.remove("hidden");
+    });
+  }
 }
