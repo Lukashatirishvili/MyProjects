@@ -1,3 +1,4 @@
+// ******** Selecting Elements ********
 const input = document.querySelector(".input");
 const taskSection_el = document.querySelector(".task-section");
 const arrowButton_el = document.querySelector(".arrow-btn");
@@ -6,6 +7,7 @@ const allBtn = document.querySelector(".all-button");
 const activeBtn = document.querySelector(".active-button");
 const completedBtn = document.querySelector(".completed-button");
 
+// ******** Functions ********
 function createTask(e) {
   if (e.keyCode === 13 && input.value) {
     const task_el = document.createElement("div");
@@ -122,7 +124,7 @@ function displayItem() {
     filterSection_el.classList.add("hidden");
   }
   // display item counter
-  itemCounter_el.textContent = `${taskActive_el.length} items left`;
+  itemCounter_el.textContent = `${taskActive_el.length} item left`;
 
   // display clear button
   if (taskCompleted_el.length > 0) {
