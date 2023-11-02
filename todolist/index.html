@@ -4,14 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Todos</title>
   </head>
   <body>
-    <div class="todos-app">
+    <div class="todo-app">
       <header>
         <h1>todos</h1>
         <div class="input-section">
-          <img src="images/arrow.png" class="arrow-btn unclicked hidden" />
+          <button class="checkall-btn">
+            <i class="fa-solid fa-chevron-down fa-lg"></i>
+          </button>
           <input
             type="text"
             class="input"
@@ -23,9 +32,9 @@
       <div class="filter-section hidden">
         <span class="items-left">0 items left</span>
         <div class="filter-buttons">
-          <button class="all-button active">All</button>
-          <button class="active-button">Active</button>
-          <button class="completed-button">Completed</button>
+          <button class="all-btn clicked">All</button>
+          <button class="active-btn">Active</button>
+          <button class="completed-btn">Completed</button>
         </div>
         <span class="clear-task hidden">Clear completed</span>
       </div>
