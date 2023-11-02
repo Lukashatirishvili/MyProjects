@@ -236,10 +236,10 @@ function displayItem() {
 }
 
 function saveToLocalStorage() {
-  localStorage.setItem("data", taskSection_el.innerHTML);
+  localStorage.setItem("taskSection", taskSection_el.innerHTML);
 }
 
 function getFromLocalStorage() {
-  taskSection_el.innerHTML = localStorage.getItem("data");
+  taskSection_el.innerHTML = localStorage.getItem("taskSection");
   displayItem();
 }
