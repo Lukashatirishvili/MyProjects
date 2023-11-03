@@ -2,6 +2,8 @@
 const todoApp = document.querySelector(".todo-app");
 const input = document.querySelector(".input");
 const taskSection_el = document.querySelector(".task-section");
+const filterSection_el = document.querySelector(".filter-section");
+console.log(filterSection_el);
 const allBtn = document.querySelector(".all-btn");
 const activeBtn = document.querySelector(".active-btn");
 const completedBtn = document.querySelector(".completed-btn");
@@ -161,6 +163,12 @@ function checkDelete_logic(e) {
       checkallBtn.style.color = "#797777";
       checkallBtn.classList.remove("unclicked");
       checkallBtn.classList.add("clicked");
+      if (completedBtn.matches(".clicked")) {
+        task.style.display = "none";
+      }
+      if (activeBtn.matches(".clicked")) {
+        task.style.display = "none";
+      }
     });
   } else if (target.matches(".checkall-btn.clicked")) {
     task_el.forEach((task) => {
@@ -169,6 +177,12 @@ function checkDelete_logic(e) {
       checkallBtn.style.color = "#e6e6e6";
       checkallBtn.classList.remove("clicked");
       checkallBtn.classList.add("unclicked");
+      if (completedBtn.matches(".clicked")) {
+        task.style.display = "none";
+      }
+      if (activeBtn.matches(".clicked")) {
+        task.style.display = "none";
+      }
     });
   }
 
@@ -233,6 +247,11 @@ function displayItem() {
     checkallBtn.classList.remove("clicked");
     checkallBtn.classList.add("unclicked");
   }
+
+  //
+  // task_el.forEach((task) => {
+  //   task.style.display = "flex";
+  // });
 }
 
 function saveToLocalStorage() {
@@ -242,4 +261,12 @@ function saveToLocalStorage() {
 function getFromLocalStorage() {
   taskSection_el.innerHTML = localStorage.getItem("taskSection");
   displayItem();
+  taskAfterReload();
+}
+
+function taskAfterReload() {
+  const task_el = document.querySelectorAll(".task");
+  task_el.forEach((task) => {
+    task.style.display = "flex";
+  });
 }
