@@ -385,6 +385,8 @@ function renderView(viewStr) {
   document.getElementById("app-container").innerHTML = viewStr;
 }
 
+//////// selecting elements ////////////
+
 ///////////////////////////////////////
 //// Actions
 ///////////////////////////////////////
@@ -401,11 +403,36 @@ function createTask(e) {
   }
 }
 
+function displayDeletebtn(e) {
+  const target = e.target;
+  switch (e.type) {
+    case "mouseover":
+      if (target.classList.contains("task") || target.closest(".task")) {
+        const deleteBtn = target.closest(".task").children[2];
+        deleteBtn.style.visibility = "visible";
+      }
+      break;
+    case "mouseout":
+      if (target.classList.contains("task") || target.closest(".task")) {
+        const deleteBtn = target.closest(".task").children[2];
+        deleteBtn.style.visibility = "hidden";
+      }
+      break;
+  }
+}
+
 function bootstrapApp() {
   let todostView = createTodosView(todosViewModel);
   renderView(todostView);
+
+  // Selecting elements
   const input = document.querySelector(".input");
+  const taskSection_el = document.querySelector(".task-section");
+
+  // Add event listeners
   input.addEventListener("keydown", createTask);
+  taskSection_el.addEventListener("mouseover", displayDeletebtn);
+  taskSection_el.addEventListener("mouseout", displayDeletebtn);
 }
 
 bootstrapApp();
