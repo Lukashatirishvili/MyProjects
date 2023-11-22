@@ -286,20 +286,7 @@ let todosViewModel = {
     inputValue: "",
   },
   todosListViewModel: {
-    todoListItemView: [
-      {
-        title: "Task 12",
-        completed: false,
-      },
-      {
-        title: "Task 2",
-        completed: true,
-      },
-      {
-        title: "Task 3",
-        completed: false,
-      },
-    ],
+    todoListItemView: [],
   },
   todoFilterViewModel: {
     itemsLeftCount: 2,
@@ -350,10 +337,11 @@ function createTodosListView(todosListViewModel) {
 }
 
 function createTodoListItemView(todoListItemViewModel) {
+  console.log(todoListItemViewModel.title);
   return /*html*/ `
-      <div class="task ${
-        todoListItemViewModel.completed ? "completed" : "active"
-      }" style="display: flex;">
+      <div id="${todoListItemViewModel.id}" class="task ${
+    todoListItemViewModel.completed ? "completed" : "active"
+  }" style="display: flex;">
         <button class="check unclicked">
           <i class="fa-regular fa-circle-check fa-2xl"></i>
         </button>
@@ -397,6 +385,7 @@ function createTask(e) {
     todosViewModel.todosListViewModel.todoListItemView.push({
       title: e.target.value,
       completed: false,
+      id: new Date().getTime(),
     });
 
     bootstrapApp();
@@ -421,6 +410,30 @@ function displayDeletebtn(e) {
   }
 }
 
+function updateCompletionStatus(idToUpdate) {}
+
+function updateTask(e) {
+  const isTarget = e.target.classList.contains("check");
+  if (isTarget) {
+    const idToUpdate = +e.target.parentElement.id;
+
+    let todoListItemView = todosViewModel.todosListViewModel.todoListItemView;
+    let taskIndex = -1;
+    taskIndex = todoListItemView.findIndex(function (task) {
+      return task.id === idToUpdate;
+    });
+
+    // If the task with the specified ID is found, update its completion status
+    if (taskIndex !== -1) {
+      todoListItemView[taskIndex].completed = todoListItemView[taskIndex]
+        .completed
+        ? false
+        : true;
+    }
+    bootstrapApp();
+  }
+}
+
 function bootstrapApp() {
   let todostView = createTodosView(todosViewModel);
   renderView(todostView);
@@ -433,6 +446,7 @@ function bootstrapApp() {
   input.addEventListener("keydown", createTask);
   taskSection_el.addEventListener("mouseover", displayDeletebtn);
   taskSection_el.addEventListener("mouseout", displayDeletebtn);
+  document.addEventListener("click", updateTask);
 }
 
 bootstrapApp();
