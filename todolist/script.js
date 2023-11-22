@@ -337,7 +337,6 @@ function createTodosListView(todosListViewModel) {
 }
 
 function createTodoListItemView(todoListItemViewModel) {
-  console.log(todoListItemViewModel.title);
   return /*html*/ `
       <div id="${todoListItemViewModel.id}" class="task ${
     todoListItemViewModel.completed ? "completed" : "active"
@@ -392,6 +391,24 @@ function createTask(e) {
   }
 }
 
+function deleteTask(e) {
+  const isTarget = e.target.classList.contains("delete");
+  if (isTarget) {
+    const idToUpdate = +e.target.parentElement.id;
+
+    let todoListItemView = todosViewModel.todosListViewModel.todoListItemView;
+    let taskIndex = -1;
+    taskIndex = todoListItemView.findIndex(function (task) {
+      return task.id === idToUpdate;
+    });
+
+    if (taskIndex !== -1) {
+      todoListItemView.splice(taskIndex, 1);
+    }
+    bootstrapApp();
+  }
+}
+
 function displayDeletebtn(e) {
   const target = e.target;
   switch (e.type) {
@@ -410,8 +427,6 @@ function displayDeletebtn(e) {
   }
 }
 
-function updateCompletionStatus(idToUpdate) {}
-
 function updateTask(e) {
   const isTarget = e.target.classList.contains("check");
   if (isTarget) {
@@ -423,7 +438,6 @@ function updateTask(e) {
       return task.id === idToUpdate;
     });
 
-    // If the task with the specified ID is found, update its completion status
     if (taskIndex !== -1) {
       todoListItemView[taskIndex].completed = todoListItemView[taskIndex]
         .completed
@@ -447,6 +461,11 @@ function bootstrapApp() {
   taskSection_el.addEventListener("mouseover", displayDeletebtn);
   taskSection_el.addEventListener("mouseout", displayDeletebtn);
   document.addEventListener("click", updateTask);
+  document.addEventListener("click", deleteTask);
+  // document.addEventListener("click", (e) => {
+  //   updateTask(e);
+  //   deleteTask(e);
+  // });
 }
 
 bootstrapApp();
